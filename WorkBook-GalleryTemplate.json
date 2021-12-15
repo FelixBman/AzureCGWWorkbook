@@ -268,7 +268,7 @@
             "type": 3,
             "content": {
               "version": "KqlItem/1.0",
-              "query": "CGWextractSDWANPerf\r\n| where host in~ ({SiteDevice}) | project TimeGenerated, host, toint(latencyavg), toint(latencymax), toint(latencymin), toint(bwdownmax), toint(bwupmax)\r\n| summarize  Max = round(max(latencymax),1), Min = round(min(latencymin),1), Average = round(avg(latencyavg),1), DMMbps = max(bwdownmax/1000), UPMbps = max(bwupmax/1000), DMKB = max(bwdownmax/8), UMKB = max(bwupmax/8)   by host\r\n//divide by 1000 to get Mbps, by 8 to get kilobytes ",
+              "query": "CommonSecurityLog | where DeviceEventClassID == 400 | parse AdditionalExtensions with \"tunnel=\" tunnel \";host=\" host \";transpstate=\" transportstate \";tstamp=\" tstamp \";nbsamples=\" nbsamples \";bwupmin=\" bwupmin \";bwupavg=\" bwupavg \";bwupmax=\" bwupmax \";bwdownmin=\" bwdownmin \";bwdownavg=\" bwdownavg \";bwdownmax=\" bwdownmax \";latencymin=\" latencymin \";latencyavg=\" latencyavg \";latencymax=\" latencymax \";useupstdmin=\" useupstdmin \";useupstdavg=\" useupstdavg \";useupstdmax=\" useupstdmax \";usedownstdmin=\" usedownstdmin \";usedownstdavg=\" usedownstdavg \";usedownstdmax=\" usedownstdmax \";useupndmin=\"  useupndmin \";useupndavg=\" useupndavg \";useupndmax=\" useupndmax \";usedownndmin=\" usedownndmin \";usedownndavg=\" usedownndavg \";usedownndmax=\" usedownndmax | where toint(nbsamples) >= 300\r\n| where host in~ ({SiteDevice}) | project TimeGenerated, host, toint(latencyavg), toint(latencymax), toint(latencymin), toint(bwdownmax), toint(bwupmax)\r\n| summarize  Max = round(max(latencymax),1), Min = round(min(latencymin),1), Average = round(avg(latencyavg),1), DMMbps = max(bwdownmax/1000), UPMbps = max(bwupmax/1000), DMKB = max(bwdownmax/8), UMKB = max(bwupmax/8)   by host\r\n//divide by 1000 to get Mbps, by 8 to get kilobytes ",
               "size": 1,
               "aggregation": 2,
               "title": "CloudGen WAN Site Performance Summary (1h)",
@@ -442,7 +442,7 @@
               "noDataMessage": "0",
               "noDataMessageStyle": 4,
               "timeContext": {
-                "durationMs": 900000
+                "durationMs": 0
               },
               "timeContextFromParameter": "TimeFrame",
               "showRefreshButton": true,
@@ -595,13 +595,13 @@
                   "name": "User",
                   "type": 2,
                   "query": "CommonSecurityLog\r\n| where  SourceUserName != \"\"\r\n| distinct SourceUserName\r\n",
-                  "value": "felix@felixbueltmann.de",
+                  "value": null,
                   "typeSettings": {
                     "additionalResourceOptions": [],
                     "showDefault": false
                   },
                   "timeContext": {
-                    "durationMs": 604800000
+                    "durationMs": 2592000000
                   },
                   "queryType": 0,
                   "resourceType": "microsoft.operationalinsights/workspaces"
@@ -665,7 +665,7 @@
               "size": 0,
               "title": "Top Applications",
               "timeContext": {
-                "durationMs": 7776000000
+                "durationMs": 0
               },
               "timeContextFromParameter": "TimeRange",
               "queryType": 0,
@@ -686,7 +686,7 @@
               "size": 0,
               "title": "Top Category",
               "timeContext": {
-                "durationMs": 7776000000
+                "durationMs": 0
               },
               "timeContextFromParameter": "TimeRange",
               "queryType": 0,
@@ -707,7 +707,7 @@
               "size": 0,
               "title": "Last 100 blocked connections",
               "timeContext": {
-                "durationMs": 7776000000
+                "durationMs": 0
               },
               "timeContextFromParameter": "TimeRange",
               "showRefreshButton": true,
@@ -746,7 +746,7 @@
               "size": 0,
               "title": "Recent Connections",
               "timeContext": {
-                "durationMs": 7776000000
+                "durationMs": 0
               },
               "timeContextFromParameter": "TimeRange",
               "showRefreshButton": true,
@@ -900,7 +900,7 @@
               "aggregation": 2,
               "title": "Load over time",
               "timeContext": {
-                "durationMs": 3600000
+                "durationMs": 0
               },
               "timeContextFromParameter": "TimeFrame",
               "showRefreshButton": true,
@@ -1117,7 +1117,7 @@
             "type": 3,
             "content": {
               "version": "KqlItem/1.0",
-              "query": "CGW_SDWAN_Perf_Data\r\n| where Computer in~ ({SiteDevices})\r\n| distinct Computer, DeviceVersion\r\n",
+              "query": "CommonSecurityLog | where DeviceEventClassID == 400 | parse AdditionalExtensions with \"tunnel=\" tunnel \";host=\" host \";transpstate=\" transportstate \";tstamp=\" tstamp \";nbsamples=\" nbsamples \";bwupmin=\" bwupmin \";bwupavg=\" bwupavg \";bwupmax=\" bwupmax \";bwdownmin=\" bwdownmin \";bwdownavg=\" bwdownavg \";bwdownmax=\" bwdownmax \";latencymin=\" latencymin \";latencyavg=\" latencyavg \";latencymax=\" latencymax \";useupstdmin=\" useupstdmin \";useupstdavg=\" useupstdavg \";useupstdmax=\" useupstdmax \";usedownstdmin=\" usedownstdmin \";usedownstdavg=\" usedownstdavg \";usedownstdmax=\" usedownstdmax \";useupndmin=\"  useupndmin \";useupndavg=\" useupndavg \";useupndmax=\" useupndmax \";usedownndmin=\" usedownndmin \";usedownndavg=\" usedownndavg \";usedownndmax=\" usedownndmax | where toint(nbsamples) >= 300\r\n| where Computer in~ ({SiteDevices})\r\n| distinct Computer, DeviceVersion\r\n",
               "size": 0,
               "title": "Firmware  Version",
               "timeContext": {
@@ -1250,12 +1250,12 @@
             "type": 3,
             "content": {
               "version": "KqlItem/1.0",
-              "query": "CGWextractSDWANPerf | where host in~ ({SiteDevices}) and host !contains \"cudanva-gw\" | project toint(bwdownavg), toint(bwupavg), host, TimeGenerated | \r\nsummarize avg(bwdownavg/8), avg(bwupavg/8) by host ",
+              "query": "CommonSecurityLog \r\n| where DeviceEventClassID == 400 | parse AdditionalExtensions with \"tunnel=\" tunnel \";host=\" host \";transpstate=\" transportstate \";tstamp=\" tstamp \";nbsamples=\" nbsamples \";bwupmin=\" bwupmin \";bwupavg=\" bwupavg \";bwupmax=\" bwupmax \";bwdownmin=\" bwdownmin \";bwdownavg=\" bwdownavg \";bwdownmax=\" bwdownmax \";latencymin=\" latencymin \";latencyavg=\" latencyavg \";latencymax=\" latencymax \";useupstdmin=\" useupstdmin \";useupstdavg=\" useupstdavg \";useupstdmax=\" useupstdmax \";usedownstdmin=\" usedownstdmin \";usedownstdavg=\" usedownstdavg \";usedownstdmax=\" usedownstdmax \";useupndmin=\"  useupndmin \";useupndavg=\" useupndavg \";useupndmax=\" useupndmax \";usedownndmin=\" usedownndmin \";usedownndavg=\" usedownndavg \";usedownndmax=\" usedownndmax | where toint(nbsamples) >= 300\r\n| where host in~ ({SiteDevices}) and host !contains \"cudanva-gw\" | project toint(bwdownavg), toint(bwupavg), host, TimeGenerated | \r\nsummarize avg(bwdownavg/8), avg(bwupavg/8) by host ",
               "size": 0,
               "aggregation": 5,
               "title": "Latest WAN Bandwidth Measurement",
               "timeContext": {
-                "durationMs": 3600000
+                "durationMs": 0
               },
               "timeContextFromParameter": "TimeFrame",
               "queryType": 0,
@@ -1301,7 +1301,7 @@
               "size": 0,
               "title": "New Connections",
               "timeContext": {
-                "durationMs": 3600000
+                "durationMs": 300000
               },
               "timeContextFromParameter": "TimeFrame",
               "showRefreshButton": true,
@@ -1471,11 +1471,11 @@
             "type": 3,
             "content": {
               "version": "KqlItem/1.0",
-              "query": "CGWextractSDWANPerf | where host ==  '{SiteDevice}' \r\n| project TimeGenerated, host, toint(latencyavg), toint(latencymax), toint(latencymin) \r\n| summarize  latency = arg_max(latencymin, latencyavg) by bin(TimeGenerated, 1h)",
+              "query": "CommonSecurityLog | where DeviceEventClassID == 400 | parse AdditionalExtensions with \"tunnel=\" tunnel \";host=\" host \";transpstate=\" transportstate \";tstamp=\" tstamp \";nbsamples=\" nbsamples \";bwupmin=\" bwupmin \";bwupavg=\" bwupavg \";bwupmax=\" bwupmax \";bwdownmin=\" bwdownmin \";bwdownavg=\" bwdownavg \";bwdownmax=\" bwdownmax \";latencymin=\" latencymin \";latencyavg=\" latencyavg \";latencymax=\" latencymax \";useupstdmin=\" useupstdmin \";useupstdavg=\" useupstdavg \";useupstdmax=\" useupstdmax \";usedownstdmin=\" usedownstdmin \";usedownstdavg=\" usedownstdavg \";usedownstdmax=\" usedownstdmax \";useupndmin=\"  useupndmin \";useupndavg=\" useupndavg \";useupndmax=\" useupndmax \";usedownndmin=\" usedownndmin \";usedownndavg=\" usedownndavg \";usedownndmax=\" usedownndmax | where toint(nbsamples) >= 300\r\n | where host ==  '{SiteDevice}' \r\n| project TimeGenerated, host, toint(latencyavg), toint(latencymax), toint(latencymin) \r\n| summarize  latency = arg_max(latencymin, latencyavg) by bin(TimeGenerated, 1h)",
               "size": 0,
               "title": "Latency",
               "timeContext": {
-                "durationMs": 14400000
+                "durationMs": 0
               },
               "timeContextFromParameter": "TimeFrame",
               "showRefreshButton": true,
@@ -1514,7 +1514,7 @@
             "type": 3,
             "content": {
               "version": "KqlItem/1.0",
-              "query": "CGWextractSDWANPerf\r\n| where host == '{SiteDevice}' | project TimeGenerated, host, toint(useupstdmax), toint(useupstdavg), toint(useupstdmin)\r\n| summarize DM = max(useupstdmax/8), DA = avg(useupstdavg/8), DMin = min(useupstdmin/8) by bin(TimeGenerated, 1h)\r\n//divided by 8 to convert between kilobits and kilobytes, also due to reporting bug useupstd actually returns download",
+              "query": "CommonSecurityLog | where DeviceEventClassID == 400 | parse AdditionalExtensions with \"tunnel=\" tunnel \";host=\" host \";transpstate=\" transportstate \";tstamp=\" tstamp \";nbsamples=\" nbsamples \";bwupmin=\" bwupmin \";bwupavg=\" bwupavg \";bwupmax=\" bwupmax \";bwdownmin=\" bwdownmin \";bwdownavg=\" bwdownavg \";bwdownmax=\" bwdownmax \";latencymin=\" latencymin \";latencyavg=\" latencyavg \";latencymax=\" latencymax \";useupstdmin=\" useupstdmin \";useupstdavg=\" useupstdavg \";useupstdmax=\" useupstdmax \";usedownstdmin=\" usedownstdmin \";usedownstdavg=\" usedownstdavg \";usedownstdmax=\" usedownstdmax \";useupndmin=\"  useupndmin \";useupndavg=\" useupndavg \";useupndmax=\" useupndmax \";usedownndmin=\" usedownndmin \";usedownndavg=\" usedownndavg \";usedownndmax=\" usedownndmax | where toint(nbsamples) >= 300\r\n| where host == '{SiteDevice}' | project TimeGenerated, host, toint(useupstdmax), toint(useupstdavg), toint(useupstdmin)\r\n| summarize DM = max(useupstdmax/8), DA = avg(useupstdavg/8), DMin = min(useupstdmin/8) by bin(TimeGenerated, 1h)\r\n//divided by 8 to convert between kilobits and kilobytes, also due to reporting bug useupstd actually returns download",
               "size": 0,
               "title": "Download Usage",
               "timeContext": {
@@ -1546,12 +1546,12 @@
             "type": 3,
             "content": {
               "version": "KqlItem/1.0",
-              "query": "CGWextractSDWANPerf\r\n| where host == '{SiteDevice}' | project TimeGenerated, host, toint(usedownstdmax), toint(usedownstdavg), toint(usedownstdmin)\r\n| summarize UpMax = max(usedownstdmax/8), UpAvg = avg(usedownstdavg/8), UpMin = min(usedownstdmin/8) by bin(TimeGenerated, 1h)\r\n//values divided by 8 to convert kilobits to kilobytes, and due to bug usedownstd actually represents upload speed.",
+              "query": "CommonSecurityLog | where DeviceEventClassID == 400 | parse AdditionalExtensions with \"tunnel=\" tunnel \";host=\" host \";transpstate=\" transportstate \";tstamp=\" tstamp \";nbsamples=\" nbsamples \";bwupmin=\" bwupmin \";bwupavg=\" bwupavg \";bwupmax=\" bwupmax \";bwdownmin=\" bwdownmin \";bwdownavg=\" bwdownavg \";bwdownmax=\" bwdownmax \";latencymin=\" latencymin \";latencyavg=\" latencyavg \";latencymax=\" latencymax \";useupstdmin=\" useupstdmin \";useupstdavg=\" useupstdavg \";useupstdmax=\" useupstdmax \";usedownstdmin=\" usedownstdmin \";usedownstdavg=\" usedownstdavg \";usedownstdmax=\" usedownstdmax \";useupndmin=\"  useupndmin \";useupndavg=\" useupndavg \";useupndmax=\" useupndmax \";usedownndmin=\" usedownndmin \";usedownndavg=\" usedownndavg \";usedownndmax=\" usedownndmax | where toint(nbsamples) >= 300\r\n| where host == '{SiteDevice}' | project TimeGenerated, host, toint(usedownstdmax), toint(usedownstdavg), toint(usedownstdmin)\r\n| summarize UpMax = max(usedownstdmax/8), UpAvg = avg(usedownstdavg/8), UpMin = min(usedownstdmin/8) by bin(TimeGenerated, 1h)\r\n//values divided by 8 to convert kilobits to kilobytes, and due to bug usedownstd actually represents upload speed.",
               "size": 0,
               "showAnnotations": true,
               "title": "Upstream Bandwidth Utilisation",
               "timeContext": {
-                "durationMs": 14400000
+                "durationMs": 0
               },
               "timeContextFromParameter": "TimeFrame",
               "showRefreshButton": true,
@@ -1692,7 +1692,7 @@
             "type": 3,
             "content": {
               "version": "KqlItem/1.0",
-              "query": " \nCGW_SDWAN_Perf_Data\n| where host in~ ({Gateways}) and Activity == \"SdWanData\" //and Computer contains \"cudanva-a4ca4vleunpzy\"\n//| where Activity == \"SdWanData\" and Computer contains \"cudanva-a4ca4vleunpzy\"\n|  parse AdditionalExtensions with \"tunnel=\" tunnel \";host=\" host \";transpstate=\" transportstate \";tstamp=\" tstamp \";nbsamples=\" nbsamples \";bwupmin=\" bwupmin \";bwupavg=\" bwupavg \";bwupmax=\" bwupmax \";bwdownmin=\" bwdownmin \";bwdownavg=\" bwdownavg \";bwdownmax=\" bwdownmax \";latencymin=\" latencymin \";latencyavg=\" latencyavg \";latencymax=\" latencymax \";useupstdmin=\" useupstdmin \";useupstdavg=\" useupstdavg \";useupstdmax=\" useupstdmax \";usedownstdmin=\" usedownstdmin \";usedownstdavg=\" usedownstdavg \";usedownstdmax=\" usedownstdmax \";useupndmin=\"  useupndmin \";useupndavg=\" useupndavg \";useupndmax=\" useupndmax \";usedownndmin=\" usedownndmin \";usedownndavg=\" usedownndavg \";usedownndmax=\" usedownndmax\n//| summarize usedownstdavg=countif(usedownstdavg==true) by Computer\n//| where TimeGenerated > now() - 120m\n|project TimeGenerated, host, egress=(toint(usedownstdavg)+ toint(usedownndavg)), ingress=(toint(useupstdavg) + toint(useupndavg))\n\n//| distinct Computer, bwdownavg, bwupavg, usedownstdavg, useupstdavg, usedownndavg, useupndavg",
+              "query": " \nCommonSecurityLog | where DeviceEventClassID == 400 | parse AdditionalExtensions with \"tunnel=\" tunnel \";host=\" host \";transpstate=\" transportstate \";tstamp=\" tstamp \";nbsamples=\" nbsamples \";bwupmin=\" bwupmin \";bwupavg=\" bwupavg \";bwupmax=\" bwupmax \";bwdownmin=\" bwdownmin \";bwdownavg=\" bwdownavg \";bwdownmax=\" bwdownmax \";latencymin=\" latencymin \";latencyavg=\" latencyavg \";latencymax=\" latencymax \";useupstdmin=\" useupstdmin \";useupstdavg=\" useupstdavg \";useupstdmax=\" useupstdmax \";usedownstdmin=\" usedownstdmin \";usedownstdavg=\" usedownstdavg \";usedownstdmax=\" usedownstdmax \";useupndmin=\"  useupndmin \";useupndavg=\" useupndavg \";useupndmax=\" useupndmax \";usedownndmin=\" usedownndmin \";usedownndavg=\" usedownndavg \";usedownndmax=\" usedownndmax | where toint(nbsamples) >= 300\n| where host in~ ({Gateways}) and Activity == \"SdWanData\" //and Computer contains \"cudanva-a4ca4vleunpzy\"\n//| where Activity == \"SdWanData\" and Computer contains \"cudanva-a4ca4vleunpzy\"\n|  parse AdditionalExtensions with \"tunnel=\" tunnel \";host=\" host \";transpstate=\" transportstate \";tstamp=\" tstamp \";nbsamples=\" nbsamples \";bwupmin=\" bwupmin \";bwupavg=\" bwupavg \";bwupmax=\" bwupmax \";bwdownmin=\" bwdownmin \";bwdownavg=\" bwdownavg \";bwdownmax=\" bwdownmax \";latencymin=\" latencymin \";latencyavg=\" latencyavg \";latencymax=\" latencymax \";useupstdmin=\" useupstdmin \";useupstdavg=\" useupstdavg \";useupstdmax=\" useupstdmax \";usedownstdmin=\" usedownstdmin \";usedownstdavg=\" usedownstdavg \";usedownstdmax=\" usedownstdmax \";useupndmin=\"  useupndmin \";useupndavg=\" useupndavg \";useupndmax=\" useupndmax \";usedownndmin=\" usedownndmin \";usedownndavg=\" usedownndavg \";usedownndmax=\" usedownndmax\n//| summarize usedownstdavg=countif(usedownstdavg==true) by Computer\n//| where TimeGenerated > now() - 120m\n|project TimeGenerated, host, egress=(toint(usedownstdavg)+ toint(usedownndavg)), ingress=(toint(useupstdavg) + toint(useupndavg))\n\n//| distinct Computer, bwdownavg, bwupavg, usedownstdavg, useupstdavg, usedownndavg, useupndavg",
               "size": 1,
               "showAnnotations": true,
               "title": "GW Throughput",

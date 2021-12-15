@@ -17,7 +17,7 @@
       },
       "workbookSourceId": {
         "type": "string",
-        "defaultValue": "/subscriptions/9c7ebab4-5981-4c1c-a8bf-c1c60162fc34/resourceGroups/fbu-cgwan-vwan-rg/providers/Microsoft.OperationalInsights/workspaces/fbu-logAna",
+        "defaultValue": "",
         "metadata": {
           "description": "The id of resource instance to which the workbook will be associated"
         }

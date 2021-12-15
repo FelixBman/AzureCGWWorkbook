@@ -11,6 +11,10 @@
       "workbookType": {
         "type": "string",
         "defaultValue": "workbook",
+        "allowedValues": [
+            "view",
+            "workbook"
+          ],
         "metadata": {
           "description": "The gallery that the workbook will been shown under. Supported values include workbook, tsg, etc. Usually, this is 'workbook'"
         }

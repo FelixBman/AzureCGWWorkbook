@@ -25,5 +25,5 @@ To manually deploy a workbook via Azure Portal;
 - From the menu on the left, select Workbooks
 - Create New
 - Click on the Advanced Editor button ![Enable Firewall Activity Log](images/advancedcode.png)
-- Open the ![Workbook](Workbook/Barracuda%20CloudGen%20Firewall.workbook) in Raw mode and copy and paste the contents between GitHub and the editor in the Azure portal
+- Open the ![Workbook](CGW.workbook) in Raw mode and copy and paste the contents between GitHub and the editor in the Azure portal
 - Click on the Apply button. Click on the Advanced Editor button ![Apply](images/paste.png)# AzureCGWWorkbook

@@ -20,8 +20,8 @@
     }
   },
   "variables": {
-    "templateBaseUrl": "https://raw.githubusercontent.com/FelixBman/AzureCGWWorkbook/main/CloudGen%20WAN%20Service%20Workbook.json",
-    "workbookTemplateUrl": "[uri(variables('templateBaseUrl'), 'workbook.json')]"
+    "templateBaseUrl": "https://raw.githubusercontent.com/FelixBman/AzureCGWWorkbook/main/",
+    "workbookTemplateUrl": "[uri(variables('templateBaseUrl'), 'CloudGenWANServiceWorkbo')]"
   },
   "resources": [
 {
@@ -45,7 +45,7 @@
         "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
       ],
             "properties": {
-            "category": "BarracudaCGW",
+            "category": "BarracudaCGWNEW",
             "displayName": "CGFWFirewallActivity",
             "query": "Syslog| where ProcessName == \"box_Firewall_Activity\" | extend Type = extract(\"type=([\\\\w\\\\s]+)\",1,SyslogMessage), L4Protocol = extract(\"proto=([\\\\w\\\\s]+)\",1,SyslogMessage) , SourceInterface = extract(\"srcIF=([\\\\w\\\\s]+)\",1,SyslogMessage), SourceIP = extract(\"srcIP=([\\\\d\\\\.]+)\",1,SyslogMessage), SourcePort = extract(\"srcPort=([\\\\d\\\\s]+)\",1,SyslogMessage), SourceMAC = extract(\"srcMAC=([\\\\w\\\\d:]+)\",1,SyslogMessage), DestinationIP = extract(\"dstIP=([\\\\d\\\\.]+)\",1,SyslogMessage), DestinationPort = extract(\"dstPort=([\\\\w\\\\s]+)\",1,SyslogMessage), DestinationService = extract(\"dstService=([\\\\w\\\\s]+)\",1,SyslogMessage), DestinationInterface = extract(\"dstIF=([\\\\w\\\\s]+)\",1,SyslogMessage), FirewallRule = extract(\"rule=([\\\\w\\\\s\\\\-]+)\",1,SyslogMessage), Info = extract(\"info=([\\\\w\\\\s]+)\",1,SyslogMessage), SourceNAT = extract(\"srcNAT=([\\\\d\\\\.]+)\",1,SyslogMessage), DestinationNAT = extract(\"dstNAT=([\\\\d\\\\.]+)\",1,SyslogMessage), Duration = extract(\"duration=([\\\\d]+)\",1,SyslogMessage), Count = extract(\"count=([\\\\d]+)\",1,SyslogMessage), ReceivedBytes = extract(\"receivedBytes=([\\\\d]+)\",1,SyslogMessage), SentBytes = extract(\"sentBytes=([\\\\d]+)\",1,SyslogMessage), ReceivedPackets = extract(\"receivedPackets=([\\\\d]+)\",1,SyslogMessage), SentPackets = extract(\"sentPackets=([\\\\d]+)\",1,SyslogMessage), User = extract(\"user=([\\\\w\\\\s]+)\",1,SyslogMessage), L7Protocol = extract(\"protocol=([\\\\w\\\\s]+)\",1,SyslogMessage), Application = extract(\"application=([\\\\w\\\\s]+)\",1,SyslogMessage), Target = extract(\"target=([\\\\w\\\\s]+)\",1,SyslogMessage), Content = extract(\"content=([\\\\w\\\\s]+)\",1,SyslogMessage), URLCategory = extract(\"urlcat=([\\\\w\\\\s]+)\",1,SyslogMessage)",
             "FunctionAlias": "CGFWFirewallActivity",
@@ -62,10 +62,10 @@
         "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
       ],
           "properties": {
-            "category": "BarracudaCGW",
-            "displayName": "CGWextractSDWANPerf",
+            "category": "BarracudaCGWNEW",
+            "displayName": "CGWextractSDWANPerfNEW",
             "query": "CommonSecurityLog | where DeviceEventClassID == 400 | parse AdditionalExtensions with \"tunnel=\" tunnel \";host=\" host \";transpstate=\" transportstate \";tstamp=\" tstamp \";nbsamples=\" nbsamples \";bwupmin=\" bwupmin \";bwupavg=\" bwupavg \";bwupmax=\" bwupmax \";bwdownmin=\" bwdownmin \";bwdownavg=\" bwdownavg \";bwdownmax=\" bwdownmax \";latencymin=\" latencymin \";latencyavg=\" latencyavg \";latencymax=\" latencymax \";useupstdmin=\" useupstdmin \";useupstdavg=\" useupstdavg \";useupstdmax=\" useupstdmax \";usedownstdmin=\" usedownstdmin \";usedownstdavg=\" usedownstdavg \";usedownstdmax=\" usedownstdmax \";useupndmin=\"  useupndmin \";useupndavg=\" useupndavg \";useupndmax=\" useupndmax \";usedownndmin=\" usedownndmin \";usedownndavg=\" usedownndavg \";usedownndmax=\" usedownndmax | where toint(nbsamples) >= 300",
-            "FunctionAlias": "CGWextractSDWANPerf",
+            "FunctionAlias": "CGWextractSDWANPerfNEW",
             "version": 1,
             "etag": "*"
                       }
@@ -79,8 +79,8 @@
         "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
       ],
           "properties": {
-            "category": "BarracudaCGW",
-            "displayName": "GetFWAvailabiltyFromLoad",
+            "category": "BarracudaCGWNEW",
+            "displayName": "GetFWAvailabiltyFromLoadNEW",
             "query": "Perf | where TimeGenerated > now() - 30d and TimeGenerated < now() and InstanceName == \"BNGF\" and ObjectName == \"Load\" | summarize heartbeat_per_hour=count() by bin_at(TimeGenerated, 1h, now() - 30d), Computer | extend available_per_hour=iff(heartbeat_per_hour>0, true, false) | summarize total_available_hours=countif(available_per_hour==true) by Computer | extend total_number_of_buckets=round((now()-(now() - 30d))/1h)+1 | extend availability_rate=total_available_hours*100/total_number_of_buckets",
             "FunctionAlias": "GetFWAvailabiltyFromLoad",
             "version": 2,

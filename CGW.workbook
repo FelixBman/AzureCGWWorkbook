@@ -99,7 +99,7 @@
                   "multiSelect": true,
                   "quote": "'",
                   "delimiter": ",",
-                  "query": "Heartbeat | where ComputerEnvironment == \"Non-Azure\" or Computer contains \"nva-gw\" and TimeGenerated > ago(30d)\r\n | distinct Computer\r\n",
+                  "query": "Perf\r\n| where InstanceName ==  \"BNGF\" and Computer !contains \"cudanva-\" and TimeGenerated > ago(30d)\r\n | distinct Computer\r\n",
                   "typeSettings": {
                     "additionalResourceOptions": [
                       "value::all"
@@ -549,6 +549,14 @@
           {
             "type": 1,
             "content": {
+              "json": "05/09/2022 Changed availability from Heartbeat to Perf",
+              "style": "info"
+            },
+            "name": "text - 7"
+          },
+          {
+            "type": 1,
+            "content": {
               "json": "12/02/2021 Added TimeRange",
               "style": "info"
             },
@@ -557,7 +565,7 @@
           {
             "type": 1,
             "content": {
-              "json": "version 0.5.1\r\nfbueltmann@barracuda.com",
+              "json": "version 0.5.1\r\nFelix Bueltmann",
               "style": "upsell"
             },
             "name": "text - 5"
